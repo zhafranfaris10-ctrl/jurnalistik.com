@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Karya | Jurnalistik Sekolah{% endblock %}
+{% block content %}
+<section class="page-hero"><span class="eyebrow">GALERI KREATIVITAS</span><h1>Karya <em>anggota.</em></h1><p>Ruang apresiasi untuk ide dan kreativitas yang sudah diterbitkan.</p></section>
+<section class="section-block">
+{% if works %}
+<div class="work-grid">
+{% for item in works %}
+<article class="work-card"><div class="work-card-top"><span>{{ item.category }}</span><b>✦</b></div><h3>{{ item.title }}</h3><p>{{ item.description or 'Karya kreatif anggota jurnalistik.' }}</p><small>{{ item.name }} · {{ item.class_name }}</small><a href="{{ url_for('karya_file', submission_id=item.id) }}">Unduh karya →</a></article>
+{% endfor %}
+</div>
+{% else %}
+<div class="empty-state"><div class="empty-icon">✧</div><h3>Belum ada karya yang diterbitkan</h3><p>Karya yang lolos penilaian admin akan muncul di halaman ini.</p><a class="btn btn-primary" href="{{ url_for('pengumpulan') }}">Kirim karya</a></div>
+{% endif %}
+</section>
+{% endblock %}

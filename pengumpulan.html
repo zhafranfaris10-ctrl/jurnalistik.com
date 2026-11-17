@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Kirim Karya | Jurnalistik Sekolah{% endblock %}
+{% block content %}
+<section class="page-hero"><span class="eyebrow">SAATNYA BERKARYA</span><h1>Kirim <em>karyamu.</em></h1><p>Pilih cara pengumpulan yang paling nyaman. Kamu bisa scan QR poster atau mengunggah file langsung di halaman ini.</p></section>
+<section class="section-block submit-layout">
+  <div class="poster-panel">
+    <div class="poster-caption"><span class="eyebrow">PENGUMPULAN VIA QR</span><h2>Scan poster ini</h2><p>Gunakan kamera HP untuk membuka folder Google Drive pengumpulan karya.</p></div>
+    <a href="https://drive.google.com/drive/folders/1NBUl6_RdWYIUvXVGD98bsuTZmZAVNElX" target="_blank" rel="noopener">
+      <img class="poster-image" src="{{ url_for('static', filename='images/poster-kirim-karya.jpg') }}" alt="Poster Kirim Karya dengan kode QR">
+    </a>
+    <a class="drive-link" href="https://drive.google.com/drive/folders/1NBUl6_RdWYIUvXVGD98bsuTZmZAVNElX" target="_blank" rel="noopener">Buka folder Google Drive ↗</a>
+  </div>
+  <div class="form-panel">
+    <span class="eyebrow">UPLOAD LANGSUNG</span><h2>Formulir pengiriman</h2><p class="muted">Isi data berikut untuk mengirim file ke admin jurnalistik.</p>
+    <form method="POST" enctype="multipart/form-data" class="site-form">
+      <label>Nama lengkap<input name="name" required placeholder="Nama kamu"></label>
+      <label>Kelas<input name="class_name" required placeholder="Contoh: 8A"></label>
+      <label>Judul karya<input name="title" required placeholder="Judul karya"></label>
+      <label>Kategori<select name="category" required><option value="">Pilih kategori</option><option>Gambar/Ilustrasi</option><option>Puisi & Cerpen</option><option>Cerita Inspiratif</option><option>Desain Grafis</option><option>Fotografi</option><option>Lainnya</option></select></label>
+      <label>Ceritakan singkat karyamu<textarea name="description" rows="3" placeholder="Deskripsi karya (opsional)"></textarea></label>
+      <label>File karya<input type="file" name="file" required accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"><small>PDF, DOC, DOCX, JPG, PNG · Maksimal 10 MB</small></label>
+      <button class="btn btn-primary btn-full" type="submit">Kirim karya <span>→</span></button>
+    </form>
+  </div>
+</section>
+{% endblock %}

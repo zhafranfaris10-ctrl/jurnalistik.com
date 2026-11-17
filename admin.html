@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Dashboard Admin | Jurnalistik Sekolah{% endblock %}
+{% block content %}
+<section class="page-hero"><span class="eyebrow">PENGELOLAAN KARYA</span><h1>Dashboard <em>admin.</em></h1><p>Kelola kiriman, penilaian, dan saran yang masuk.</p></section>
+<section class="section-block"><h2>Kiriman karya</h2>
+{% if submissions %}
+{% for item in submissions %}
+<div class="admin-card">
+  <div class="admin-card-head"><div><span class="tag">{{ item.category }}</span><h3>{{ item.title }}</h3><p>{{ item.name }} · {{ item.class_name }} · {{ item.created_at }}</p></div><span class="status">{{ item.status }}</span></div>
+  {% if item.description %}<p>{{ item.description }}</p>{% endif %}
+  <a class="text-link" href="{{ url_for('admin_file', filename=item.filename) }}">Unduh file kiriman ↓</a>
+  <form method="POST" class="admin-form">
+    <input type="hidden" name="submission_id" value="{{ item.id }}">
+    <label>Nilai (0–100)<input type="number" name="score" min="0" max="100" value="{{ item.score if item.score is not none else '' }}"></label>
+    <label>Status<select name="status"><option {% if item.status=='Menunggu' %}selected{% endif %}>Menunggu</option><option {% if item.status=='Diterbitkan' %}selected{% endif %}>Diterbitkan</option><option {% if item.status=='Ditolak' %}selected{% endif %}>Ditolak</option></select></label>
+    <label class="feedback-field">Feedback<textarea name="feedback" rows="2">{{ item.feedback or '' }}</textarea></label>
+    <button class="btn btn-primary" type="submit">Simpan penilaian</button>
+  </form>
+</div>
+{% endfor %}
+{% else %}<div class="empty-state"><h3>Belum ada kiriman</h3><p>Kiriman dari halaman Kirim Karya akan muncul di sini.</p></div>{% endif %}
+<h2 class="admin-subtitle">Saran masuk</h2>
+{% for item in suggestions %}<div class="suggestion-card"><strong>{{ item.name or 'Anonim' }}</strong><small>{{ item.created_at }}</small><p>{{ item.message }}</p></div>{% else %}<p class="muted">Belum ada saran.</p>{% endfor %}
+</section>
+{% endblock %}
